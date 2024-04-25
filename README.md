@@ -1,4 +1,4 @@
-[![](https://jitpack.io/v/DevMayur/AndroidFlexiView.svg)](https://jitpack.io/#DevMayur/AndroidFlexiView)# FlexiView
+[![](https://jitpack.io/v/DevMayur/AndroidFlexiView.svg)](https://jitpack.io/#DevMayur/AndroidFlexiView) # FlexiView
 A Custom android view that supports wide range of customisations.
 
 # DrawableRelativeLayout
