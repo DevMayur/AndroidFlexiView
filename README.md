@@ -41,7 +41,7 @@ Add it in your root build.gradle at the end of repositories:
 To integrate `DrawableRelativeLayout` into your Android project, include the custom view in your XML layout.
 
 ```xml
-<your.package.name.DrawableRelativeLayout
+<com.mayur.flexiview.DrawableRelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:custom_background_color="#FFFFFF"
