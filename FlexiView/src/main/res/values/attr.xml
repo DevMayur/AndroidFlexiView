@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="custom_view">
+        <attr name="custom_background_color" format="color" />
+        <attr name="custom_stroke_color" format="color" />
+        <attr name="custom_stroke_width" format="dimension" />
+        <attr name="custom_corner_radius_top_left" format="dimension" />
+        <attr name="custom_corner_radius_top_right" format="dimension" />
+        <attr name="custom_corner_radius_bottom_right" format="dimension" />
+        <attr name="custom_corner_radius_bottom_left" format="dimension" />
+        <attr name="custom_gradient_start_color" format="color" />
+        <attr name="custom_gradient_end_color" format="color" />
+        <attr name="custom_gradient_angle" format="float" />
+        <attr name="custom_colors" format="reference"/>
+        <attr name="custom_positions" format="string"/>
+        <attr name="custom_corner_radius" format="dimension"/>
+        <attr name="custom_padding" format="dimension"/>
+        <attr name="custom_avoid_radius_padding" format="boolean"/>
+        <attr name="custom_avoid_stroke_padding" format="boolean"/>
+        <attr name="custom_blur_radius" format="dimension"/>
+        <attr name="custom_blur_color" format="color"/>
+    </declare-styleable>
+
+</resources>
