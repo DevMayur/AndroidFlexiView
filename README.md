@@ -61,7 +61,7 @@ drawableRelativeLayout.setBackgroundColor(Color.parseColor("#FF0000"));
 drawableRelativeLayout.setStrokeColor(Color.parseColor("#00FF00"));
 drawableRelativeLayout.setStrokeWidth(5);
 drawableRelativeLayout.setCornerRadius(20);
-
+```
 
 Adjust the properties of DrawableRelativeLayout programmatically to match your specific requirements. These methods provide a way to customize the view after it has been initialized.
 
