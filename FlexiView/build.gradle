@@ -20,6 +20,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
 }
 
 publishing {
@@ -29,7 +33,7 @@ publishing {
             from components.findByName('release')
             groupId = 'com.github.DevMayur'
             artifactId = 'AndroidFlexiView'
-            version = '5.0'
+            version = '6.0'
             artifact("$buildDir/outputs/aar/FlexiView-release.aar")
         }
     }
@@ -66,7 +70,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
     testImplementation 'junit:junit:4.13.2'
-    implementation 'com.github.DevMayur:FlexiView:5.0'
+    implementation 'com.github.DevMayur:FlexiView:6.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
