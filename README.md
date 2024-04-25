@@ -17,6 +17,27 @@ A Custom android view that supports wide range of customisations.
 
 ### Adding to your project
 
+
+## Installation
+#### Step 1. Add the JitPack repository to your build file
+Add it in your root build.gradle at the end of repositories:
+```xml
+  dependencyResolutionManagement {
+		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+		repositories {
+			mavenCentral()
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
+#### Step 2. Add the dependency
+```xml
+  dependencies {
+	        implementation 'com.github.DevMayur:AndroidFlexiView:Tag'
+	}
+```
+
 To integrate `DrawableRelativeLayout` into your Android project, include the custom view in your XML layout.
 
 ```xml
@@ -65,8 +86,7 @@ drawableRelativeLayout.setCornerRadius(20);
 
 Adjust the properties of DrawableRelativeLayout programmatically to match your specific requirements. These methods provide a way to customize the view after it has been initialized.
 
-# Project Title
-## Project Title
+## FlexiView
 
 Contributions are welcome! If you have any improvements or suggestions, please feel free to submit a pull request or open an issue. We appreciate feedback from the community to help enhance the project.
 
