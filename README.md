@@ -1,5 +1,5 @@
 # FlexiView
-A Custom android view that supports wide range of customisations. 
+A Custom android view that supports wide range of customisations.
 
 # DrawableRelativeLayout
 
@@ -28,7 +28,7 @@ To integrate `DrawableRelativeLayout` into your Android project, include the cus
     app:custom_stroke_width="4dp"
     app:custom_corner_radius="10dp"
     ... />
-
+```
 
 ## Attributes
 
@@ -76,5 +76,3 @@ Specify your licensing information here. For open-source projects, it is crucial
 
 
 This README section provides a clear outline of how to programmatically configure the custom view, how others can contribute to its development, and reminds you to specify the license under which your project is released. Adjust the content as needed to suit the specific context of your project or any additional instructions you might want to include.
-
-
