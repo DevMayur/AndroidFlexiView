@@ -35,7 +35,7 @@ Add it in your root build.gradle at the end of repositories:
 #### Step 2. Add the dependency
 ```xml
   dependencies {
-	        implementation 'com.github.DevMayur:AndroidFlexiView:Tag'
+	        implementation 'com.github.DevMayur:AndroidFlexiView:11.0'
 	}
 ```
 
