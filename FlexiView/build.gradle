@@ -33,21 +33,12 @@ publishing {
             from components.findByName('release')
             groupId = 'com.github.DevMayur'
             artifactId = 'AndroidFlexiView'
-            version = '9.0'
+            version = '10.0'
             artifact("$buildDir/outputs/aar/FlexiView-release.aar")
         }
     }
     repositories {
         mavenLocal()
-//        maven {
-//            name = 'GithubPackages'
-//            url = uri("https://maven.pkg.github.com/DevMayur/AndroidFlexiView")
-//            credentials {
-//                username = System.getenv("GITHUB_USER")
-//                password = System.getenv("GITHUB_TOKEN")
-//            }
-//            assert url != null : "Repository URL not set"
-//        }
     }
 }
 
@@ -71,7 +62,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
     testImplementation 'junit:junit:4.13.2'
-    implementation 'com.github.DevMayur:FlexiView:9.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
