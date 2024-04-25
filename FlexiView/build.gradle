@@ -31,25 +31,41 @@ publishing {
         maven(MavenPublication) {
             // Adjust to the proper component name if needed
             from components.findByName('release')
-            groupId = 'com.mayurkakade'
-            artifactId = 'flexiview'
-            version = '1.0'
+            groupId = 'com.github.DevMayur'
+            artifactId = 'AndroidFlexiView'
+            version = '3.0'
+        }
+    }
+    repositories {
+        maven {
+            name = 'myrepo'
+            url = uri("${buildDir}/repos")
+            assert url != null : "Repository URL not set"
         }
     }
 }
 
 tasks.register('generateRepo', Zip) {
-    def publishTask = tasks.named('publishReleasePublicationToMyrepoRepository')
-    from publishTask.map { it.getRepository().getUrl() }
-    into 'flexiview'
-    archiveFileName.set('flexiview.zip')
+    // Delay the configuration until the task is actually executed.
+    doFirst {
+        def publishTask = tasks.findByName('publishReleasePublicationToMyrepoRepository')
+        if (publishTask) {
+            from publishTask.outputs.files
+            into 'flexiview'
+            archiveFileName.set('flexiview.zip')
+        } else {
+            throw new GradleException("Required task 'publishReleasePublicationToMyrepoRepository' not found.")
+        }
+    }
 }
+
 
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
     testImplementation 'junit:junit:4.13.2'
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
