@@ -111,6 +111,10 @@ public class DrawableRelativeLayout extends RelativeLayout {
                 customDrawable.setGradientAngle(a.getFloat(R.styleable.DrawableRelativeLayout_gradientAngle, 0));
             }
 
+            if (a.hasValue(R.styleable.DrawableRelativeLayout_gradientType)) {
+                customDrawable.setGradientType(a.getInteger(R.styleable.DrawableRelativeLayout_gradientType, 0));
+            }
+
             if (a.hasValue(R.styleable.DrawableRelativeLayout_padding)) {
                 setCustomPadding(a.getDimensionPixelSize(R.styleable.DrawableRelativeLayout_padding, 0));
             }
@@ -218,6 +222,11 @@ public class DrawableRelativeLayout extends RelativeLayout {
 
     public void avoidRadiusStroke(boolean avoidPaddingRadius) {
         this.avoid_padding_with_corner_radius = avoidPaddingRadius;
+        invalidate();
+    }
+
+    public void setGradientType(int type) {
+        customDrawable.setGradientType(type);
         invalidate();
     }
 

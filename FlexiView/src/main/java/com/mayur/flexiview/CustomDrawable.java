@@ -35,6 +35,7 @@ public class CustomDrawable extends Drawable {
     private boolean drawStrokeColor = false;
     private boolean drawGradient = false;
     private boolean drawBlur = false;
+    private int gradientType = 0; // 0 for linear, 1 for radial
 
     public CustomDrawable(Context context) {
         this.paint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -59,11 +60,21 @@ public class CustomDrawable extends Drawable {
 
         // Draw gradient first
         if (drawGradient) {
-            LinearGradient gradient = new LinearGradient(
-                    rectF.left, rectF.top,
-                    (float) (rectF.left + Math.cos(Math.toRadians(gradientAngle)) * rectF.width()),
-                    (float) (rectF.top + Math.sin(Math.toRadians(gradientAngle)) * rectF.height()),
-                    gradientColors, gradientPositions, Shader.TileMode.CLAMP);
+            Shader gradient;
+            if (gradientType == 0) { // Linear gradient
+                gradient = new LinearGradient(
+                        rectF.left, rectF.top,
+                        (float) (rectF.left + Math.cos(Math.toRadians(gradientAngle)) * rectF.width()),
+                        (float) (rectF.top + Math.sin(Math.toRadians(gradientAngle)) * rectF.height()),
+                        gradientColors, gradientPositions, Shader.TileMode.CLAMP);
+            } else { // Radial gradient
+                float centerX = rectF.centerX();
+                float centerY = rectF.centerY();
+                float radius = Math.max(rectF.width(), rectF.height()) / 2f;
+                gradient = new android.graphics.RadialGradient(
+                        centerX, centerY, radius,
+                        gradientColors, gradientPositions, Shader.TileMode.CLAMP);
+            }
 
             paint.setShader(gradient);
             paint.setStyle(Paint.Style.FILL);
@@ -196,5 +207,9 @@ public class CustomDrawable extends Drawable {
         invalidateSelf();
     }
 
+    public void setGradientType(int type) {
+        this.gradientType = type;
+        invalidateSelf();
+    }
 
 }
