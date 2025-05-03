@@ -22,7 +22,84 @@
         <attr name="gradientType" format="enum">
             <enum name="linear" value="0"/>
             <enum name="radial" value="1"/>
+            <enum name="sweep" value="2"/>
         </attr>
+        <attr name="reverseGradient" format="boolean"/>
+
+        <!-- Shadow Effects -->
+        <attr name="shadowColor" format="color"/>
+        <attr name="shadowRadius" format="dimension"/>
+        <attr name="shadowDx" format="dimension"/>
+        <attr name="shadowDy" format="dimension"/>
+
+        <!-- Border Styles -->
+        <attr name="borderStyle" format="enum">
+            <enum name="solid" value="0"/>
+            <enum name="dashed" value="1"/>
+            <enum name="dotted" value="2"/>
+        </attr>
+        <attr name="dashWidth" format="dimension"/>
+        <attr name="dashGap" format="dimension"/>
+
+        <!-- Gradient Center Point -->
+        <attr name="gradientCenterX" format="float"/>
+        <attr name="gradientCenterY" format="float"/>
+        <attr name="gradientRadius" format="dimension"/>
+
+        <!-- Ripple Effect -->
+        <attr name="rippleColor" format="color"/>
+        <attr name="rippleEnabled" format="boolean"/>
+
+        <!-- State-based Colors -->
+        <attr name="backgroundColorPressed" format="color"/>
+        <attr name="backgroundColorDisabled" format="color"/>
+        <attr name="strokeColorPressed" format="color"/>
+        <attr name="strokeColorDisabled" format="color"/>
+
+        <!-- Animation -->
+        <attr name="animationDuration" format="integer"/>
+
+        <!-- Blur Edge -->
+        <attr name="blurEdge" format="boolean"/>
+        <attr name="blurEdgeRadius" format="dimension"/>
+
+        <!-- Gradient Spread -->
+        <attr name="gradientSpread" format="enum">
+            <enum name="pad" value="0"/>
+            <enum name="repeat" value="1"/>
+            <enum name="mirror" value="2"/>
+        </attr>
+
+        <!-- Corner Style -->
+        <attr name="cornerStyle" format="enum">
+            <enum name="rounded" value="0"/>
+            <enum name="cut" value="1"/>
+        </attr>
+
+        <!-- Border Alignment -->
+        <attr name="borderAlignment" format="enum">
+            <enum name="inside" value="0"/>
+            <enum name="center" value="1"/>
+            <enum name="outside" value="2"/>
+        </attr>
+
+        <!-- Gradient Interpolation -->
+        <attr name="gradientInterpolation" format="enum">
+            <enum name="linear" value="0"/>
+            <enum name="accelerate" value="1"/>
+            <enum name="decelerate" value="2"/>
+        </attr>
+
+        <!-- Blur Quality -->
+        <attr name="blurQuality" format="enum">
+            <enum name="low" value="0"/>
+            <enum name="medium" value="1"/>
+            <enum name="high" value="2"/>
+        </attr>
+
+        <!-- State-based Corner Radius -->
+        <attr name="cornerRadiusPressed" format="dimension"/>
+        <attr name="cornerRadiusDisabled" format="dimension"/>
     </declare-styleable>
 
 </resources>
