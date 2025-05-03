@@ -527,4 +527,12 @@ public class CustomDrawable extends Drawable {
         this.isEnabled = enabled;
         invalidateSelf();
     }
+
+    public int getCornerRadius() {
+        return cornerRadiusTopLeft;
+    }
+    
+    public float getShadowRadius() {
+        return shadowRadius;
+    }
 }

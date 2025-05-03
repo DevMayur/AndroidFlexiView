@@ -1,15 +1,16 @@
 package com.mayur.flexiview;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Demo activity showing how to use the StacksView with DrawableRelativeLayout
  * children declared directly in XML
  */
-public class StacksViewXmlDemoActivity extends Activity {
+public class StacksViewXmlDemoActivity extends AppCompatActivity {
 
     private StacksView stacksView;
     private Button buttonPrevious;
@@ -18,7 +19,7 @@ public class StacksViewXmlDemoActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.stacks_view_xml_example);
+        setContentView(R.layout.activity_stacks_view_xml_demo);
 
         // Find views
         stacksView = findViewById(R.id.stacks_view);

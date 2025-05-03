@@ -32,6 +32,14 @@ public class StacksView extends ViewGroup {
     private static final int ANIMATION_DURATION = 250;
     private static final float SWIPE_THRESHOLD = 0.3f;
 
+    // Constants for carousel-style layout with movie poster effect
+    private static final float LEFT_CARD_VISIBLE_PERCENT = 0.20f;
+    private static final float RIGHT_CARD_VISIBLE_PERCENT = 0.20f;
+    private static final float SIDE_CARD_SCALE = 0.8f;
+    private static final float SIDE_CARD_ROTATION_Y = 45f; // Perspective effect
+    private static final float SIDE_CARD_ROTATION_Z = 5f; // Slight tilt
+    private static final float SIDE_CARD_ALPHA = 0.6f; // Darkening of side cards
+
     // Variables for touch handling
     private float mLastX;
     private float mInitialX;
@@ -149,32 +157,46 @@ public class StacksView extends ViewGroup {
         int totalChildren = mActiveViews.size();
         if (totalChildren == 0) return;
         
-        // Show visible items
-        int visibleCount = Math.min(mVisibleItems, totalChildren);
+        // Ensure all needed views are properly detached and reattached
+        detachAllViewsFromParent();
+        
+        // For initial view setup, ensure we have 3 items visible if possible
+        int prevPosition = mCurrentPosition > 0 ? 
+                          mCurrentPosition - 1 : 
+                          totalChildren - 1;
+                         
+        int nextPosition = (mCurrentPosition + 1) % totalChildren;
+        
+        // Get the views for the three positions to show
+        View prevView = mActiveViews.get(prevPosition);
+        View nextView = mActiveViews.get(nextPosition);
+        View currentView = mActiveViews.get(mCurrentPosition);
+        
+        // Attach in the correct z-order (bottom to top)
+        // Make all needed views visible
+        prevView.setVisibility(View.VISIBLE);
+        nextView.setVisibility(View.VISIBLE);
+        currentView.setVisibility(View.VISIBLE);
+        
+        // Attach in z-order (bottom to top)
+        attachViewToParent(prevView, 0, prevView.getLayoutParams());
+        attachViewToParent(nextView, 1, nextView.getLayoutParams());
+        attachViewToParent(currentView, 2, currentView.getLayoutParams());
+        
+        // Hide other views if there are more than 3
         for (int i = 0; i < totalChildren; i++) {
-            View child = mActiveViews.get(i);
-            if (i < visibleCount) {
-                int position = (mCurrentPosition + i) % totalChildren;
-                
-                // Make the child at position visible
-                View viewToShow = mActiveViews.get(position);
-                viewToShow.setVisibility(View.VISIBLE);
-                
-                // Ensure it's at the correct position in the ViewGroup
-                // The view might already be attached, so detach it
-                if (indexOfChild(viewToShow) >= 0) {
-                    detachViewFromParent(viewToShow);
-                }
-                
-                // Attach it at the top of the Z-order (visibleCount - i - 1)
-                attachViewToParent(viewToShow, visibleCount - i - 1, viewToShow.getLayoutParams());
-            } else {
-                child.setVisibility(View.GONE);
+            if (i != mCurrentPosition && i != prevPosition && i != nextPosition) {
+                mActiveViews.get(i).setVisibility(View.GONE);
             }
         }
         
-        // Apply transformations
-        applyTransformations();
+        // Apply transformations in post to ensure it happens after layout
+        post(new Runnable() {
+            @Override
+            public void run() {
+                applyTransformations();
+            }
+        });
     }
 
     @Override
@@ -211,8 +233,13 @@ public class StacksView extends ViewGroup {
             }
         }
 
-        // Apply transformations to create the stack effect
-        applyTransformations();
+        // Make sure to apply transformations after initial layout
+        post(new Runnable() {
+            @Override
+            public void run() {
+                applyTransformations();
+            }
+        });
     }
 
     /**
@@ -223,14 +250,23 @@ public class StacksView extends ViewGroup {
         int childCount = getChildCount();
         if (childCount == 0) return;
         
+        int totalItems = mUsingAdapter ? mAdapter.getCount() : mActiveViews.size();
+        int viewWidth = getWidth();
+        
         for (int i = 0; i < childCount; i++) {
             View view = getChildAt(i);
             if (view.getVisibility() == GONE) continue;
             
+            // Calculate the position relative to current
+            int position = (i == 0) ? mCurrentPosition : 
+                          ((mCurrentPosition + i) % totalItems);
+            int relativePos = position - mCurrentPosition;
+            
             if (i == 0) {
-                // Top view is affected by swipe
-                view.setTranslationX(mSwipeProgress * getWidth());
-                view.setRotation(mSwipeProgress * 15f);
+                // Current/center view
+                // Apply swipe animation if in progress
+                float xTranslation = mSwipeProgress * viewWidth;
+                view.setTranslationX(xTranslation);
                 
                 // Make the view disappear when swiped far enough
                 float alpha = 1f;
@@ -239,37 +275,53 @@ public class StacksView extends ViewGroup {
                 }
                 view.setAlpha(alpha);
                 
-                // Adjust other properties based on swipe
-                float scale = 1f;
+                // Main card has no rotation when centered
+                float scale = 1.0f;
                 view.setScaleX(scale);
                 view.setScaleY(scale);
                 view.setTranslationY(0);
+                view.setRotation(mSwipeProgress * 5f); // Small rotation for swipe
+                view.setRotationY(mSwipeProgress * 15f); // Add perspective effect during swipe
+                view.setCameraDistance(viewWidth * 5); // Enhance perspective effect
                 view.setElevation(childCount + 10f);
-            } else {
-                // Adjust index based on swipe progress
-                float adjustedIndex = i - Math.min(1, Math.max(0, 1 - Math.abs(mSwipeProgress)));
+            } else if (relativePos == -1 || (relativePos == totalItems - 1 && i == 1)) {
+                // Left card (previous)
+                float visibleWidth = viewWidth * LEFT_CARD_VISIBLE_PERCENT;
+                float xTranslation = -viewWidth + visibleWidth + (mSwipeProgress > 0 ? mSwipeProgress * viewWidth : 0);
                 
-                // Stacked views
-                float scale = 1f - (adjustedIndex * mScaleDecrement);
-                view.setScaleX(scale);
-                view.setScaleY(scale);
+                view.setTranslationX(xTranslation);
+                view.setScaleX(SIDE_CARD_SCALE);
+                view.setScaleY(SIDE_CARD_SCALE);
+                view.setTranslationY(0);
                 
-                // Offset each card
-                float xOffset = adjustedIndex * mXOffset;
-                float yOffset = adjustedIndex * mYOffset;
-                view.setTranslationX(xOffset);
-                view.setTranslationY(yOffset);
+                // Apply perspective effect and tilt
+                view.setRotationY(SIDE_CARD_ROTATION_Y);
+                view.setRotation(-SIDE_CARD_ROTATION_Z);
+                view.setCameraDistance(viewWidth * 5);
                 
-                // Add slight rotation for visual interest
-                float rotation = 0;
-                if (adjustedIndex > 0) {
-                    rotation = (float) (Math.random() * mRotationMax * 2 - mRotationMax) * 0.2f;
-                }
-                view.setRotation(rotation);
-                
-                // Set elevation to ensure proper rendering order
+                view.setAlpha(SIDE_CARD_ALPHA);
                 view.setElevation(childCount - i);
-                view.setAlpha(1f);
+            } else if (relativePos == 1 || (relativePos == -(totalItems - 1) && i == 1)) {
+                // Right card (next)
+                float visibleWidth = viewWidth * RIGHT_CARD_VISIBLE_PERCENT;
+                float xTranslation = viewWidth - visibleWidth + (mSwipeProgress < 0 ? mSwipeProgress * viewWidth : 0);
+                
+                view.setTranslationX(xTranslation);
+                view.setScaleX(SIDE_CARD_SCALE);
+                view.setScaleY(SIDE_CARD_SCALE);
+                view.setTranslationY(0);
+                
+                // Apply perspective effect and tilt
+                view.setRotationY(-SIDE_CARD_ROTATION_Y);
+                view.setRotation(SIDE_CARD_ROTATION_Z);
+                view.setCameraDistance(viewWidth * 5);
+                
+                view.setAlpha(SIDE_CARD_ALPHA);
+                view.setElevation(childCount - i);
+            } else {
+                // Hide other cards
+                view.setAlpha(0f);
+                view.setTranslationX(relativePos > 0 ? viewWidth : -viewWidth);
             }
         }
     }
@@ -531,28 +583,54 @@ public class StacksView extends ViewGroup {
         }
         mActiveViews.clear();
         
-        // Add visible views from adapter
-        int count = Math.min(mVisibleItems, mAdapter.getCount());
-        for (int i = 0; i < count; i++) {
-            int position = (mCurrentPosition + i) % mAdapter.getCount();
-            
-            View view;
-            if (!mRecycledViews.isEmpty()) {
-                // Reuse a recycled view
-                view = mRecycledViews.remove(0);
-                mAdapter.getView(position, view, this);
-            } else {
-                // Create a new view
-                view = mAdapter.getView(position, null, this);
+        int totalCount = mAdapter.getCount();
+        if (totalCount == 0) return;
+        
+        // We need at minimum 3 views: current, left, right (if available)
+        // For initial setup:
+        // - Current item is in center (mCurrentPosition)
+        // - Left item is the last item or previous item (if mCurrentPosition > 0)
+        // - Right item is the next item (mCurrentPosition+1 or 0 if at end)
+        
+        int prevPosition = mCurrentPosition > 0 ? 
+                          mCurrentPosition - 1 : 
+                          totalCount - 1;
+                          
+        int nextPosition = (mCurrentPosition + 1) % totalCount;
+        
+        // Add the three cards in the proper z-order
+        addCardViewAtPosition(prevPosition); // Previous (bottom)
+        addCardViewAtPosition(nextPosition); // Next (middle)
+        addCardViewAtPosition(mCurrentPosition); // Current (top)
+        
+        // Apply transformations after adding all views
+        post(new Runnable() {
+            @Override
+            public void run() {
+                applyTransformations();
             }
-            
-            // Add the view to the stack
-            addView(view, 0);
-            mActiveViews.add(view);
+        });
+    }
+    
+    /**
+     * Helper method to add a card at the given position
+     */
+    private void addCardViewAtPosition(int position) {
+        if (mAdapter == null || position < 0 || position >= mAdapter.getCount()) return;
+        
+        View view;
+        if (!mRecycledViews.isEmpty()) {
+            // Reuse a recycled view
+            view = mRecycledViews.remove(0);
+            mAdapter.getView(position, view, this);
+        } else {
+            // Create a new view
+            view = mAdapter.getView(position, null, this);
         }
         
-        // Apply transformations
-        applyTransformations();
+        // Add the view to the stack (at position 0 to ensure proper z-order)
+        addView(view, 0);
+        mActiveViews.add(view);
     }
 
     /**

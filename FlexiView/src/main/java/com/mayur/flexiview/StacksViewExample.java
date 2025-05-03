@@ -64,7 +64,7 @@ public class StacksViewExample {
                 int endColor = darkenColor(color, 0.7f);
                 view.setGradientColors(new int[]{startColor, endColor});
                 view.setGradientType(0); // Linear gradient
-                view.setGradientAngle(90); // Bottom to top
+                view.setGradientAngle(90f); // Bottom to top
                 
                 // Set the title text
                 TextView textView = (TextView) view.getChildAt(0);

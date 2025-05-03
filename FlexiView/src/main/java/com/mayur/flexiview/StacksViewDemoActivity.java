@@ -1,89 +1,85 @@
 package com.mayur.flexiview;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Demo activity showing how to use the StacksView with DrawableRelativeLayout
  */
-public class StacksViewDemoActivity extends Activity {
+public class StacksViewDemoActivity extends AppCompatActivity {
 
     private StacksView stacksView;
     private Button buttonPrevious;
     private Button buttonNext;
 
+    private String[] demoItems = {
+            "Card 1", "Card 2", "Card 3", "Card 4",
+            "Card 5", "Card 6", "Card 7", "Card 8"
+    };
+
+    private int[] demoColors = {
+            Color.parseColor("#FF5722"), // Deep Orange
+            Color.parseColor("#E91E63"), // Pink
+            Color.parseColor("#9C27B0"), // Purple
+            Color.parseColor("#673AB7"), // Deep Purple
+            Color.parseColor("#3F51B5"), // Indigo
+            Color.parseColor("#2196F3"), // Blue
+            Color.parseColor("#03A9F4"), // Light Blue
+            Color.parseColor("#00BCD4")  // Cyan
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.stacks_view_example);
+        setContentView(R.layout.activity_stacks_view_demo);
 
         // Find views
         stacksView = findViewById(R.id.stacks_view);
         buttonPrevious = findViewById(R.id.button_previous);
         buttonNext = findViewById(R.id.button_next);
 
-        // Set up the stack adapter
-        String[] titles = new String[]{
-                "Minecraft",
-                "Avengers",
-                "Spider-Man",
-                "Dune",
-                "Star Wars"
-        };
-
-        int[] colors = new int[]{
-                Color.parseColor("#4285F4"), // Blue
-                Color.parseColor("#EA4335"), // Red
-                Color.parseColor("#FBBC04"), // Yellow
-                Color.parseColor("#34A853"), // Green
-                Color.parseColor("#9C27B0")  // Purple
-        };
-
-        // Create and set adapter
-        StacksView.StackAdapter adapter = StacksViewExample.createStackAdapter(this, titles, colors);
-        stacksView.setAdapter(adapter);
+        // Set up the adapter
+        stacksView.setAdapter(new DemoAdapter());
 
         // Set up navigation buttons
-        buttonPrevious.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stacksView.showPrevious();
-            }
-        });
-
-        buttonNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stacksView.showNext();
-            }
-        });
-
-        // Optional: Add a listener for position changes
-        stacksView.setOnStackChangedListener(new StacksView.OnStackChangedListener() {
-            @Override
-            public void onStackChanged(int position) {
-                // Example of updating UI based on position
-                updateNavigationButtons(position, adapter.getCount());
-            }
-        });
-
-        // Initial update of navigation buttons
-        updateNavigationButtons(0, adapter.getCount());
+        buttonPrevious.setOnClickListener(v -> stacksView.showPrevious());
+        buttonNext.setOnClickListener(v -> stacksView.showNext());
     }
 
-    /**
-     * Update the state of navigation buttons based on current position
-     */
-    private void updateNavigationButtons(int position, int count) {
-        // In this example, we're implementing circular navigation,
-        // so buttons are always enabled. For linear navigation,
-        // you could disable buttons at the ends.
-        
-        // Example of custom button styling based on position:
-        buttonPrevious.setText("Previous (" + ((position - 1 + count) % count + 1) + ")");
-        buttonNext.setText("Next (" + ((position + 1) % count + 1) + ")");
+    private class DemoAdapter extends StacksView.StackAdapter {
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+                convertView = inflater.inflate(R.layout.item_stack_card, parent, false);
+            }
+            
+            TextView textView = convertView.findViewById(R.id.text_card);
+            textView.setText(demoItems[position]);
+            convertView.setBackgroundColor(demoColors[position]);
+            
+            // Make top card clickable
+            final int currentPos = position;
+            convertView.setOnClickListener(v -> {
+                if (currentPos == stacksView.getCurrentPosition()) {
+                    // Handle top card click
+                    // For example: Toast.makeText(StacksViewDemoActivity.this, "Clicked card " + (currentPos + 1), Toast.LENGTH_SHORT).show();
+                }
+            });
+            
+            return convertView;
+        }
+
+        @Override
+        public int getCount() {
+            return demoItems.length;
+        }
     }
 } 

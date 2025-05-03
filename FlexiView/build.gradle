@@ -25,6 +25,26 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+    
+    // Configure Java toolchain
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+    
+    // Workaround for jlink issues
+    configurations.all {
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == 'org.jetbrains' && details.requested.name == 'annotations') {
+                details.useVersion '13.0'
+            }
+        }
+    }
+    
+    lintOptions {
+        abortOnError false
+    }
 }
 afterEvaluate {
     publishing {

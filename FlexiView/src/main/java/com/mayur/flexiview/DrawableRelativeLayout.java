@@ -447,4 +447,17 @@ public class DrawableRelativeLayout extends RelativeLayout {
         customDrawable.setStateCornerRadius(normal, pressed, disabled);
         invalidate();
     }
+
+    public int getCornerRadius() {
+        return customDrawable.getCornerRadius();
+    }
+    
+    public float getShadowRadius() {
+        return customDrawable.getShadowRadius();
+    }
+    
+    public void setGradientAngle(float angle) {
+        customDrawable.setGradientAngle(angle);
+        invalidate();
+    }
 }

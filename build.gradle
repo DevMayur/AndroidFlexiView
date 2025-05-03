@@ -1,4 +1,43 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-alias(libs.plugins.androidApplication) apply false
+    alias(libs.plugins.androidApplication) apply false
+}
+
+// Import JDK configuration
+import org.gradle.jvm.toolchain.JavaLanguageVersion
+
+// Apply JDK configuration to all projects
+allprojects {
+    // Configure Java toolchain for all projects
+    tasks.withType(JavaCompile).configureEach {
+        options.release = 17
+    }
+    
+    // For Android projects
+    plugins.withId('com.android.application') {
+        android {
+            compileOptions {
+                sourceCompatibility JavaVersion.VERSION_17
+                targetCompatibility JavaVersion.VERSION_17
+            }
+        }
+    }
+    
+    plugins.withId('com.android.library') {
+        android {
+            compileOptions {
+                sourceCompatibility JavaVersion.VERSION_17
+                targetCompatibility JavaVersion.VERSION_17
+            }
+        }
+    }
+    
+    // For Java projects
+    plugins.withType(JavaPlugin) {
+        java {
+            toolchain {
+                languageVersion = JavaLanguageVersion.of(17)
+            }
+        }
+    }
 }

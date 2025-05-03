@@ -1,0 +1,14 @@
+repositories {
+    mavenCentral()
+    google()
+}
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+} 

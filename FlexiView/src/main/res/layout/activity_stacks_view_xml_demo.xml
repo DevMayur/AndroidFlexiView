@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#121212">
+
+    <!-- Title in movie marquee style -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="24dp"
+        android:text="Movie Posters"
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:shadowColor="#A0000000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="4" />
+    
+    <!-- StacksView with movie poster style cards -->
+    <com.mayur.flexiview.StacksView
+        android:id="@+id/stacks_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="48dp"
+        app:visibleItems="3">
+        
+        <!-- Minecraft Card -->
+        <com.mayur.flexiview.DrawableRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="0dp"
+            app:cornerRadius="16dp"
+            app:shadowRadius="12dp"
+            app:shadowColor="#80000000"
+            app:shadowDx="4dp"
+            app:shadowDy="8dp">
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="#FFFFFF">
+                
+                <!-- Poster Area (80% of height) -->
+                <com.mayur.flexiview.DrawableRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.8"
+                    app:backgroundColor="#87CEEB">
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="MINECRAFT"
+                        android:textColor="#FFFFFF"
+                        android:textSize="32sp"
+                        android:textStyle="bold"/>
+                </com.mayur.flexiview.DrawableRelativeLayout>
+                
+                <!-- Title Section (20% of height) -->
+                <com.mayur.flexiview.DrawableRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.2"
+                    app:backgroundColor="#FFFFFF"
+                    android:gravity="center">
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="APRIL 4"
+                        android:textColor="#333333"
+                        android:textSize="16sp"/>
+                </com.mayur.flexiview.DrawableRelativeLayout>
+            </LinearLayout>
+        </com.mayur.flexiview.DrawableRelativeLayout>
+        
+        <!-- Avengers Card -->
+        <com.mayur.flexiview.DrawableRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="0dp"
+            app:cornerRadius="16dp"
+            app:shadowRadius="12dp"
+            app:shadowColor="#80000000"
+            app:shadowDx="4dp"
+            app:shadowDy="8dp">
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="#FFFFFF">
+                
+                <!-- Poster Area (80% of height) -->
+                <com.mayur.flexiview.DrawableRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.8"
+                    app:backgroundColor="#E91E63">
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="AVENGERS"
+                        android:textColor="#FFFFFF"
+                        android:textSize="32sp"
+                        android:textStyle="bold"/>
+                </com.mayur.flexiview.DrawableRelativeLayout>
+                
+                <!-- Title Section (20% of height) -->
+                <com.mayur.flexiview.DrawableRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.2"
+                    app:backgroundColor="#FFFFFF"
+                    android:gravity="center">
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="MAY 8"
+                        android:textColor="#333333"
+                        android:textSize="16sp"/>
+                </com.mayur.flexiview.DrawableRelativeLayout>
+            </LinearLayout>
+        </com.mayur.flexiview.DrawableRelativeLayout>
+        
+        <!-- Spider-Man Card -->
+        <com.mayur.flexiview.DrawableRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="0dp"
+            app:cornerRadius="16dp"
+            app:shadowRadius="12dp"
+            app:shadowColor="#80000000"
+            app:shadowDx="4dp"
+            app:shadowDy="8dp">
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="#FFFFFF">
+                
+                <!-- Poster Area (80% of height) -->
+                <com.mayur.flexiview.DrawableRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.8"
+                    app:backgroundColor="#9C27B0">
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="SPIDER-MAN"
+                        android:textColor="#FFFFFF"
+                        android:textSize="32sp"
+                        android:textStyle="bold"/>
+                </com.mayur.flexiview.DrawableRelativeLayout>
+                
+                <!-- Title Section (20% of height) -->
+                <com.mayur.flexiview.DrawableRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.2"
+                    app:backgroundColor="#FFFFFF"
+                    android:gravity="center">
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="JUNE 15"
+                        android:textColor="#333333"
+                        android:textSize="16sp"/>
+                </com.mayur.flexiview.DrawableRelativeLayout>
+            </LinearLayout>
+        </com.mayur.flexiview.DrawableRelativeLayout>
+        
+    </com.mayur.flexiview.StacksView>
+    
+    <!-- Navigation buttons with movie theater style -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        
+        <Button
+            android:id="@+id/button_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="Previous"
+            android:background="#444444"
+            android:textColor="#FFFFFF" />
+            
+        <Button
+            android:id="@+id/button_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Next"
+            android:background="#444444"
+            android:textColor="#FFFFFF" />
+            
+    </LinearLayout>
+
+</FrameLayout> 
