@@ -25,62 +25,62 @@ public class DrawableRelativeLayout extends RelativeLayout {
         customDrawable = new CustomDrawable(context);
 
         TypedArray a = context.getTheme().obtainStyledAttributes(
-                attrs, R.styleable.custom_view, defStyle, 0);
+                attrs, R.styleable.DrawableRelativeLayout, defStyle, 0);
 
         try {
-            if (a.hasValue(R.styleable.custom_view_custom_background_color)) {
-                customDrawable.setBackgroundColor(a.getColor(R.styleable.custom_view_custom_background_color, Color.WHITE));
+            if (a.hasValue(R.styleable.DrawableRelativeLayout_backgroundColor)) {
+                customDrawable.setBackgroundColor(a.getColor(R.styleable.DrawableRelativeLayout_backgroundColor, Color.WHITE));
             }
 
-            if (a.hasValue(R.styleable.custom_view_custom_stroke_color)) {
-                customDrawable.setStrokeColor(a.getColor(R.styleable.custom_view_custom_stroke_color, Color.BLACK));
+            if (a.hasValue(R.styleable.DrawableRelativeLayout_strokeColor)) {
+                customDrawable.setStrokeColor(a.getColor(R.styleable.DrawableRelativeLayout_strokeColor, Color.BLACK));
             }
 
-            avoid_padding_with_stroke_width = a.getBoolean(R.styleable.custom_view_custom_avoid_stroke_padding, false);
+            avoid_padding_with_stroke_width = a.getBoolean(R.styleable.DrawableRelativeLayout_avoidStrokePadding, false);
 
-            if (a.hasValue(R.styleable.custom_view_custom_stroke_width)) {
-                customDrawable.setStrokeWidth(a.getDimensionPixelSize(R.styleable.custom_view_custom_stroke_width, 5));
+            if (a.hasValue(R.styleable.DrawableRelativeLayout_strokeWidth)) {
+                customDrawable.setStrokeWidth(a.getDimensionPixelSize(R.styleable.DrawableRelativeLayout_strokeWidth, 5));
                 if (!avoid_padding_with_stroke_width) {
                     setPadding(
-                            a.getDimensionPixelSize(R.styleable.custom_view_custom_stroke_width, 0),
-                            a.getDimensionPixelSize(R.styleable.custom_view_custom_stroke_width, 0),
-                            a.getDimensionPixelSize(R.styleable.custom_view_custom_stroke_width, 0),
-                            a.getDimensionPixelSize(R.styleable.custom_view_custom_stroke_width, 0)
+                            a.getDimensionPixelSize(R.styleable.DrawableRelativeLayout_strokeWidth, 0),
+                            a.getDimensionPixelSize(R.styleable.DrawableRelativeLayout_strokeWidth, 0),
+                            a.getDimensionPixelSize(R.styleable.DrawableRelativeLayout_strokeWidth, 0),
+                            a.getDimensionPixelSize(R.styleable.DrawableRelativeLayout_strokeWidth, 0)
                     );
                 }
             }
 
             int tl=0, tr=0, br=0, bl=0;
-            if (a.hasValue(R.styleable.custom_view_custom_corner_radius_top_left)) {
-                customDrawable.setCornerRadiusTopLeft(a.getDimensionPixelSize(R.styleable.custom_view_custom_corner_radius_top_left, 0));
-                tl = a.getDimensionPixelSize(R.styleable.custom_view_custom_corner_radius_top_left, 0);
+            if (a.hasValue(R.styleable.DrawableRelativeLayout_cornerRadiusTopLeft)) {
+                customDrawable.setCornerRadiusTopLeft(a.getDimensionPixelSize(R.styleable.DrawableRelativeLayout_cornerRadiusTopLeft, 0));
+                tl = a.getDimensionPixelSize(R.styleable.DrawableRelativeLayout_cornerRadiusTopLeft, 0);
             }
 
-            if (a.hasValue(R.styleable.custom_view_custom_corner_radius_top_right)) {
-                customDrawable.setCornerRadiusTopRight(a.getDimensionPixelSize(R.styleable.custom_view_custom_corner_radius_top_right, 0));
-                tr = a.getDimensionPixelSize(R.styleable.custom_view_custom_corner_radius_top_right, 0);
+            if (a.hasValue(R.styleable.DrawableRelativeLayout_cornerRadiusTopRight)) {
+                customDrawable.setCornerRadiusTopRight(a.getDimensionPixelSize(R.styleable.DrawableRelativeLayout_cornerRadiusTopRight, 0));
+                tr = a.getDimensionPixelSize(R.styleable.DrawableRelativeLayout_cornerRadiusTopRight, 0);
             }
 
-            if (a.hasValue(R.styleable.custom_view_custom_corner_radius_bottom_right)) {
-                customDrawable.setCornerRadiusBottomRight(a.getDimensionPixelSize(R.styleable.custom_view_custom_corner_radius_bottom_right, 0));
-                br = a.getDimensionPixelSize(R.styleable.custom_view_custom_corner_radius_bottom_right, 0);
+            if (a.hasValue(R.styleable.DrawableRelativeLayout_cornerRadiusBottomRight)) {
+                customDrawable.setCornerRadiusBottomRight(a.getDimensionPixelSize(R.styleable.DrawableRelativeLayout_cornerRadiusBottomRight, 0));
+                br = a.getDimensionPixelSize(R.styleable.DrawableRelativeLayout_cornerRadiusBottomRight, 0);
             }
 
-            if (a.hasValue(R.styleable.custom_view_custom_corner_radius_bottom_left)) {
-                customDrawable.setCornerRadiusBottomLeft(a.getDimensionPixelSize(R.styleable.custom_view_custom_corner_radius_bottom_left, 0));
-                bl = a.getDimensionPixelSize(R.styleable.custom_view_custom_corner_radius_bottom_left, 0);
+            if (a.hasValue(R.styleable.DrawableRelativeLayout_cornerRadiusBottomLeft)) {
+                customDrawable.setCornerRadiusBottomLeft(a.getDimensionPixelSize(R.styleable.DrawableRelativeLayout_cornerRadiusBottomLeft, 0));
+                bl = a.getDimensionPixelSize(R.styleable.DrawableRelativeLayout_cornerRadiusBottomLeft, 0);
             }
 
-            avoid_padding_with_corner_radius = a.getBoolean(R.styleable.custom_view_custom_avoid_radius_padding, false);
+            avoid_padding_with_corner_radius = a.getBoolean(R.styleable.DrawableRelativeLayout_avoidRadiusPadding, false);
 
-            if (a.hasValue(R.styleable.custom_view_custom_corner_radius)) {
-                customDrawable.setCornerRadius(a.getDimensionPixelSize(R.styleable.custom_view_custom_corner_radius, 0));
+            if (a.hasValue(R.styleable.DrawableRelativeLayout_cornerRadius)) {
+                customDrawable.setCornerRadius(a.getDimensionPixelSize(R.styleable.DrawableRelativeLayout_cornerRadius, 0));
                 if (!avoid_padding_with_corner_radius) {
                     setPadding(
-                            a.getDimensionPixelSize(R.styleable.custom_view_custom_corner_radius, 0),
-                            a.getDimensionPixelSize(R.styleable.custom_view_custom_corner_radius, 0),
-                            a.getDimensionPixelSize(R.styleable.custom_view_custom_corner_radius, 0),
-                            a.getDimensionPixelSize(R.styleable.custom_view_custom_corner_radius, 0)
+                            a.getDimensionPixelSize(R.styleable.DrawableRelativeLayout_cornerRadius, 0),
+                            a.getDimensionPixelSize(R.styleable.DrawableRelativeLayout_cornerRadius, 0),
+                            a.getDimensionPixelSize(R.styleable.DrawableRelativeLayout_cornerRadius, 0),
+                            a.getDimensionPixelSize(R.styleable.DrawableRelativeLayout_cornerRadius, 0)
                     );
                 }
             }
@@ -91,15 +91,15 @@ public class DrawableRelativeLayout extends RelativeLayout {
                 }
             }
 
-            if (a.hasValue(R.styleable.custom_view_custom_gradient_start_color) && a.hasValue(R.styleable.custom_view_custom_gradient_end_color)) {
-                int startColor = a.getColor(R.styleable.custom_view_custom_gradient_start_color, Color.RED);
-                int endColor = a.getColor(R.styleable.custom_view_custom_gradient_end_color, Color.BLUE);
+            if (a.hasValue(R.styleable.DrawableRelativeLayout_gradientStartColor) && a.hasValue(R.styleable.DrawableRelativeLayout_gradientEndColor)) {
+                int startColor = a.getColor(R.styleable.DrawableRelativeLayout_gradientStartColor, Color.RED);
+                int endColor = a.getColor(R.styleable.DrawableRelativeLayout_gradientEndColor, Color.BLUE);
                 customDrawable.setGradientColors(new int[]{startColor, endColor});
             }
 
-            if (a.hasValue(R.styleable.custom_view_custom_colors) && a.hasValue(R.styleable.custom_view_custom_positions)) {
-                int[] colors = getResources().getIntArray(a.getResourceId(R.styleable.custom_view_custom_colors, 0));
-                String[] positionsString = getResources().getStringArray(a.getResourceId(R.styleable.custom_view_custom_positions, 0));
+            if (a.hasValue(R.styleable.DrawableRelativeLayout_colors) && a.hasValue(R.styleable.DrawableRelativeLayout_positions)) {
+                int[] colors = getResources().getIntArray(a.getResourceId(R.styleable.DrawableRelativeLayout_colors, 0));
+                String[] positionsString = getResources().getStringArray(a.getResourceId(R.styleable.DrawableRelativeLayout_positions, 0));
                 float[] positions = new float[positionsString.length];
                 for (int i = 0; i < positionsString.length; i++) {
                     positions[i] = Float.parseFloat(positionsString[i]);
@@ -107,21 +107,21 @@ public class DrawableRelativeLayout extends RelativeLayout {
                 customDrawable.setGradientColors(colors, positions);
             }
 
-            if (a.hasValue(R.styleable.custom_view_custom_gradient_angle)) {
-                customDrawable.setGradientAngle(a.getFloat(R.styleable.custom_view_custom_gradient_angle, 0));
+            if (a.hasValue(R.styleable.DrawableRelativeLayout_gradientAngle)) {
+                customDrawable.setGradientAngle(a.getFloat(R.styleable.DrawableRelativeLayout_gradientAngle, 0));
             }
 
-            if (a.hasValue(R.styleable.custom_view_custom_padding)) {
-                setCustomPadding(a.getDimensionPixelSize(R.styleable.custom_view_custom_padding, 0));
+            if (a.hasValue(R.styleable.DrawableRelativeLayout_padding)) {
+                setCustomPadding(a.getDimensionPixelSize(R.styleable.DrawableRelativeLayout_padding, 0));
             }
 
-            if (a.hasValue(R.styleable.custom_view_custom_blur_radius)) {
-                float radius = a.getDimension(R.styleable.custom_view_custom_blur_radius, 0f);
+            if (a.hasValue(R.styleable.DrawableRelativeLayout_blurRadius)) {
+                float radius = a.getDimension(R.styleable.DrawableRelativeLayout_blurRadius, 0f);
                 customDrawable.setBlurRadius(radius);
             }
 
-            if (a.hasValue(R.styleable.custom_view_custom_blur_color)) {
-                int color = a.getColor(R.styleable.custom_view_custom_blur_color, Color.TRANSPARENT);
+            if (a.hasValue(R.styleable.DrawableRelativeLayout_blurColor)) {
+                int color = a.getColor(R.styleable.DrawableRelativeLayout_blurColor, Color.TRANSPARENT);
                 customDrawable.setBlurColor(color);
             }
 
