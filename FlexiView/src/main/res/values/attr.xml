@@ -102,4 +102,17 @@
         <attr name="cornerRadiusDisabled" format="dimension"/>
     </declare-styleable>
 
+    <!-- StacksView Attributes -->
+    <declare-styleable name="StacksView">
+        <!-- Number of visible items in the stack -->
+        <attr name="visibleItems" format="integer"/>
+        <!-- Scale decrement for each successive item in the stack -->
+        <attr name="scaleDecrement" format="float"/>
+        <!-- Vertical offset for each successive item in the stack -->
+        <attr name="yOffset" format="dimension"/>
+        <!-- Horizontal offset for each successive item in the stack -->
+        <attr name="xOffset" format="dimension"/>
+        <!-- Maximum random rotation applied to items in the stack -->
+        <attr name="rotationMax" format="integer"/>
+    </declare-styleable>
 </resources>
